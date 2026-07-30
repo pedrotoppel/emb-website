@@ -6,6 +6,18 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Compensa o header fixo (h-20 = 5rem) pra âncora não ficar escondida atrás do menu */
+#estofados,
+#protecao,
+#tapetes,
+#contato {
+  scroll-margin-top: 5rem;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   background: #f8fafc;
