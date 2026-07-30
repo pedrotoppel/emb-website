@@ -4,6 +4,7 @@ import ServiceAreas from "./components/ServiceAreas";
 import ServiceSection from "./components/ServiceSection";
 import Benefits from "./components/Benefits";
 import Results from "./components/Results";
+import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
 const services = [
@@ -47,6 +48,7 @@ export default function App() {
       ))}
       <Benefits />
       <Results />
+      <Testimonials />
       <Footer />
     </div>
   );

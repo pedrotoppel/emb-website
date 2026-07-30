@@ -57,7 +57,7 @@ export default function Header() {
               >
                 EMB Higienização
               </p>
-              <p className="text-xs text-blue-400 tracking-wider">
+              <p className="text-xs text-blue-600 tracking-wider">
                 CURITIBA E REGIÃO
               </p>
             </div>
