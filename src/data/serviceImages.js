@@ -11,21 +11,21 @@
  * no lugar de um caminho, o Carousel mostra o gradiente como placeholder
  * no lugar da imagem — útil enquanto ainda não tem a foto pronta.
  */
-import PoltronaImg from '../assets/img/estofadosImages/PoltronaImg.png'
-import ColchaoImg from '../assets/img/estofadosImages/ColchaoImg.png'
-import PuffImg from '../assets/img/estofadosImages/PuffImg.png'
+import PoltronaImg from '../assets/img/estofadosImages/PoltronaImg.webp'
+import ColchaoImg from '../assets/img/estofadosImages/ColchaoImg.webp'
+import PuffImg from '../assets/img/estofadosImages/PuffImg.webp'
 
-import IpermeabilizacaoImg from '../assets/img/protecaoImages/IpermeabilizacaoImg.jpg'
-import IpermeabilizacaoColchaoImg from '../assets/img/protecaoImages/IpermeabilizacaoColchaoImg.png'
-import IpermeabilizacaoEstofadoImg from '../assets/img/protecaoImages/IpermeabilizacaoEstofadoImg.png'
+import IpermeabilizacaoImg from '../assets/img/protecaoImages/IpermeabilizacaoImg.webp'
+import IpermeabilizacaoColchaoImg from '../assets/img/protecaoImages/IpermeabilizacaoColchaoImg.webp'
+import IpermeabilizacaoEstofadoImg from '../assets/img/protecaoImages/IpermeabilizacaoEstofadoImg.webp'
 
-import LimpezaImg from '../assets/img/tapetesImages/LimpezaImg.png'
-import TapeteFinalizado from '../assets/img/tapetesImages/TapeteFinalizado.png'
-import TapeteColorido from '../assets/img/tapetesImages/TapeteColorido.png'
+import LimpezaImg from '../assets/img/tapetesImages/LimpezaImg.webp'
+import TapeteFinalizado from '../assets/img/tapetesImages/TapeteFinalizado.webp'
+import TapeteColorido from '../assets/img/tapetesImages/TapeteColorido.webp'
 
-import result1 from '../assets/img/results/result-1.png'
-import result2 from '../assets/img/results/result-2.png'
-import result3 from '../assets/img/results/result-3.png'
+import result1 from '../assets/img/results/result-1.webp'
+import result2 from '../assets/img/results/result-2.webp'
+import result3 from '../assets/img/results/result-3.webp'
 
 const RESULTS_PLACEHOLDER = [
   result1,
