@@ -20,11 +20,36 @@ const stats = [
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-blue-950 noise-overlay">
-      {/* Gradient mesh background */}
+      {/*
+        Gradient mesh background — antes usava `filter: blur(80-120px)`
+        em divs sólidas. Blur com raio grande é uma das operações mais
+        caras pro Safari/iOS renderizar (força fallback por CPU e trava
+        a thread principal por segundos). Trocado por radial-gradient:
+        visualmente é o mesmo efeito de brilho suave, mas sem nenhum
+        custo de filtro — é só um gradiente estático.
+      */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-700/20 blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-blue-500/15 blur-[100px]" />
-        <div className="absolute top-1/2 left-0 w-[300px] h-[300px] rounded-full bg-cyan-500/10 blur-[80px]" />
+        <div
+          className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(29,78,216,0.35) 0%, rgba(29,78,216,0) 70%)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(59,130,246,0.28) 0%, rgba(59,130,246,0) 70%)",
+          }}
+        />
+        <div
+          className="absolute top-1/2 left-0 w-[300px] h-[300px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(6,182,212,0.2) 0%, rgba(6,182,212,0) 70%)",
+          }}
+        />
       </div>
 
       {/* Animated grid lines */}

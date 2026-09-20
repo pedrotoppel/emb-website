@@ -84,8 +84,20 @@ export default function Benefits() {
       {/* Benefits cards */}
       <section className="py-24 bg-blue-950 noise-overlay relative" ref={ref}>
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-blue-700/20 blur-[120px]" />
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-cyan-500/10 blur-[100px]" />
+          <div
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(29,78,216,0.2) 0%, rgba(29,78,216,0) 70%)",
+            }}
+          />
+          <div
+            className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(6,182,212,0.12) 0%, rgba(6,182,212,0) 70%)",
+            }}
+          />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
