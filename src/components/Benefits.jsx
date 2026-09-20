@@ -1,23 +1,24 @@
 import { motion } from "framer-motion";
+import { Sparkles, Wind, ShieldCheck } from "lucide-react";
 import { useInView } from "../hooks/useInView";
 
 const benefits = [
   {
-    icon: "✨",
+    icon: Sparkles,
     tag: "LIMPEZA PROFUNDA",
     title: "Limpeza profunda do seu estofado",
     desc: "Nossos especialistas utilizam técnicas avançadas e produtos de alta qualidade para remover sujeiras profundas e manchas, deixando seus estofados com aparência renovada.",
     delay: 0,
   },
   {
-    icon: "💨",
+    icon: Wind,
     tag: "ELIMINAÇÃO DE ODORES",
     title: "Eliminação eficaz de maus odores",
     desc: "Odores indesejados podem impregnar os estofados ao longo do tempo. Fique livre deste problema com a nossa higienização especializada que neutraliza na fonte.",
     delay: 0.12,
   },
   {
-    icon: "🛡️",
+    icon: ShieldCheck,
     tag: "PROTEÇÃO PARA TODOS",
     title: "Proteção para toda a família",
     desc: "Ácaros, poeira e outros alérgenos acumulam nos estofados, causando reações alérgicas. Desfrute de um ambiente mais saudável e seguro para você e todos ao seu redor.",
@@ -106,27 +107,30 @@ export default function Benefits() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {benefits.map((b, i) => (
-              <motion.div
-                key={b.tag}
-                className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/40 rounded-2xl p-8 transition-all duration-500 cursor-default"
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: b.delay }}
-                whileHover={{ y: -6 }}
-              >
-                <div className="text-4xl mb-5 group-hover:scale-110 transition-transform duration-300 inline-block">
-                  {b.icon}
-                </div>
-                <span className="text-xs font-bold tracking-widest text-blue-400 block mb-3">
-                  {b.tag}
-                </span>
-                <h3 className="text-white font-bold text-lg mb-4 leading-snug">
-                  {b.title}
-                </h3>
-                <p className="text-blue-200/60 text-sm leading-relaxed">{b.desc}</p>
-              </motion.div>
-            ))}
+            {benefits.map((b, i) => {
+              const Icon = b.icon;
+              return (
+                <motion.div
+                  key={b.tag}
+                  className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/40 rounded-2xl p-8 transition-all duration-500 cursor-default"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: b.delay }}
+                  whileHover={{ y: -6 }}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300">
+                    <Icon className="w-6 h-6 text-blue-300" strokeWidth={2} />
+                  </div>
+                  <span className="text-xs font-bold tracking-widest text-blue-400 block mb-3">
+                    {b.tag}
+                  </span>
+                  <h3 className="text-white font-bold text-lg mb-4 leading-snug">
+                    {b.title}
+                  </h3>
+                  <p className="text-blue-200/60 text-sm leading-relaxed">{b.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

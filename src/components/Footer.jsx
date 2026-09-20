@@ -84,7 +84,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-blue-400/60 text-xs text-center">
-            © 2026 EMB Higienização · Desenvolvido por Pedro Toppel
+            © 2026 EMB Higienização
           </p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const WHATS_URL = "https://wa.me/message/APCRMGCYRVWVK1";
@@ -6,12 +6,39 @@ const WHATS_URL = "https://wa.me/message/APCRMGCYRVWVK1";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const tickingRef = useRef(false);
 
+  // Scroll listener throttled via rAF + passive, para não brigar com a
+  // animação de entrada nem forçar reflow constante no mobile.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        tickingRef.current = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Trava o scroll do body enquanto o menu mobile está aberto, evitando
+  // que o conteúdo de fundo role por baixo do overlay durante a animação.
+  useEffect(() => {
+    if (menuOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      return () => {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [menuOpen]);
 
   const navLinks = [
     { label: "ESTOFADOS", href: "#estofados" },
@@ -22,15 +49,26 @@ export default function Header() {
 
   return (
     <>
+      {/*
+        A camada com backdrop-blur fica separada do elemento que é
+        animado pelo framer-motion. Animar transform + backdrop-filter
+        no MESMO elemento é o que causava o travamento no mobile
+        (Safari/iOS recompõe a blur a cada frame do slide-in).
+        Aqui a blur só recebe um fade de opacidade, bem mais barato.
+      */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-40 h-20 pointer-events-none transition-opacity duration-300 will-change-[opacity] ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg opacity-100"
+            : "bg-white/80 backdrop-blur-sm opacity-100"
+        }`}
+      />
+
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg"
-            : "bg-white/80 backdrop-blur-sm"
-        }`}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 will-change-transform transform-gpu"
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
@@ -98,9 +136,9 @@ export default function Header() {
             onClick={() => setMenuOpen(true)}
             aria-label="Abrir menu"
           >
-            <span className="w-6 h-0.5 bg-blue-900 block transition-all duration-300" />
-            <span className="w-6 h-0.5 bg-blue-900 block transition-all duration-300" />
-            <span className="w-4 h-0.5 bg-blue-900 block transition-all duration-300" />
+            <span className="w-6 h-0.5 bg-blue-900 block transition-transform duration-300" />
+            <span className="w-6 h-0.5 bg-blue-900 block transition-transform duration-300" />
+            <span className="w-4 h-0.5 bg-blue-900 block transition-transform duration-300" />
           </button>
         </div>
       </motion.header>
@@ -114,14 +152,15 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setMenuOpen(false)}
             />
             <motion.nav
-              className="fixed top-0 right-0 h-full w-64 bg-white z-50 flex flex-col shadow-2xl lg:hidden"
+              className="fixed top-0 right-0 h-full w-64 bg-white z-50 flex flex-col shadow-2xl lg:hidden will-change-transform transform-gpu"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              transition={{ type: "spring", stiffness: 300, damping: 32 }}
             >
               <div className="flex items-center justify-between p-6 border-b border-gray-100">
                 <p
@@ -132,7 +171,7 @@ export default function Header() {
                 </p>
                 <button
                   onClick={() => setMenuOpen(false)}
-                  className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition"
+                  className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
                 >
                   ✕
                 </button>
@@ -146,7 +185,7 @@ export default function Header() {
                     onClick={() => setMenuOpen(false)}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.07 }}
+                    transition={{ delay: i * 0.05, duration: 0.25 }}
                   >
                     {link.label}
                   </motion.a>

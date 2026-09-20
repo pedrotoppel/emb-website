@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import { Building2, Sofa, ShieldCheck } from "lucide-react";
 import { useInView } from "../hooks/useInView";
 
 const WHATS_URL = "https://wa.me/message/APCRMGCYRVWVK1";
 
 const areas = [
   {
-    icon: "🏢",
+    icon: Building2,
     tag: "COMERCIAL",
     title: "Higienização para empresas, escritórios e coworking",
     desc: "Higienização profissional de sofás, poltronas de recepção, cadeiras de escritório, bancos estofados, tapetes e carpetes. Removemos sujeiras e 99% dos ácaros, fungos e bactérias.",
@@ -13,7 +14,7 @@ const areas = [
     border: "border-blue-100",
   },
   {
-    icon: "🛋️",
+    icon: Sofa,
     tag: "RESIDENCIAL",
     title: "Higienização de estofados para o conforto do seu lar",
     desc: "Higienização profissional de sofás, poltronas, cadeiras, colchões, cabeceiras, tapetes e carpetes. Removemos impurezas, odores e 99% dos ácaros, fungos e bactérias.",
@@ -22,7 +23,7 @@ const areas = [
     featured: true,
   },
   {
-    icon: "🛡️",
+    icon: ShieldCheck,
     tag: "PROTEÇÃO PROFISSIONAL",
     title: "Impermeabilização com resultados duradouros",
     desc: "Aplicação de barreira invisível que repele líquidos e sujeiras, evitando manchas e aumentando a vida útil dos estofados. Ideal para lares com crianças e pets.",
@@ -54,51 +55,54 @@ export default function ServiceAreas() {
 
         {/* Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-14">
-          {areas.map((area, i) => (
-            <motion.div
-              key={area.tag}
-              className={`relative bg-white rounded-2xl p-8 border-2 ${area.border} shadow-sm hover:shadow-xl transition-all duration-500 group cursor-default ${
-                area.featured ? "ring-2 ring-blue-400/40" : ""
-              }`}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.12 }}
-              whileHover={{ y: -6 }}
-            >
-              {area.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-semibold shadow-md">
-                    MAIS SOLICITADO
-                  </span>
-                </div>
-              )}
-
-              {/* Icon */}
-              <div
-                className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${area.accent} flex items-center justify-center text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}
-              >
-                {area.icon}
-              </div>
-
-              {/* Tag */}
-              <span className="text-xs font-bold tracking-widest text-blue-400 mb-3 block">
-                {area.tag}
-              </span>
-
-              <h3 className="text-lg font-bold text-blue-950 mb-4 leading-snug">
-                {area.title}
-              </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{area.desc}</p>
-
-              {/* Bottom accent line */}
+          {areas.map((area, i) => {
+            const Icon = area.icon;
+            return (
               <motion.div
-                className={`absolute bottom-0 left-0 h-1 rounded-b-2xl bg-gradient-to-r ${area.accent}`}
-                initial={{ width: 0 }}
-                whileHover={{ width: "100%" }}
-                transition={{ duration: 0.4 }}
-              />
-            </motion.div>
-          ))}
+                key={area.tag}
+                className={`relative bg-white rounded-2xl p-8 border-2 ${area.border} shadow-sm hover:shadow-xl transition-all duration-500 group cursor-default ${
+                  area.featured ? "ring-2 ring-blue-400/40" : ""
+                }`}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: i * 0.12 }}
+                whileHover={{ y: -6 }}
+              >
+                {area.featured && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-semibold shadow-md">
+                      MAIS SOLICITADO
+                    </span>
+                  </div>
+                )}
+
+                {/* Icon */}
+                <div
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${area.accent} flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <Icon className="w-7 h-7 text-white" strokeWidth={2} />
+                </div>
+
+                {/* Tag */}
+                <span className="text-xs font-bold tracking-widest text-blue-400 mb-3 block">
+                  {area.tag}
+                </span>
+
+                <h3 className="text-lg font-bold text-blue-950 mb-4 leading-snug">
+                  {area.title}
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{area.desc}</p>
+
+                {/* Bottom accent line */}
+                <motion.div
+                  className={`absolute bottom-0 left-0 h-1 rounded-b-2xl bg-gradient-to-r ${area.accent}`}
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.4 }}
+                />
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* CTA */}

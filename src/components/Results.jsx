@@ -1,14 +1,9 @@
 import { motion } from "framer-motion";
 import { useInView } from "../hooks/useInView";
 import Carousel from "./Carousel";
+import { resultsImages } from "../data/serviceImages";
 
 const WHATS_URL = "https://wa.me/message/APCRMGCYRVWVK1";
-
-const PLACEHOLDER_IMAGES = [
-  "bg-gradient-to-br from-slate-700 to-blue-900",
-  "bg-gradient-to-br from-blue-800 to-indigo-900",
-  "bg-gradient-to-br from-cyan-700 to-blue-800",
-];
 
 export default function Results() {
   const [ref, inView] = useInView(0.1);
@@ -41,7 +36,7 @@ export default function Results() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          <Carousel images={PLACEHOLDER_IMAGES} interval={3500} />
+          <Carousel images={resultsImages} interval={3500} />
         </motion.div>
 
         <motion.div
