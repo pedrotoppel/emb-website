@@ -19,7 +19,7 @@ const stats = [
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-blue-950 noise-overlay">
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-blue-950 noise-overlay">
       {/*
         Gradient mesh background — antes usava `filter: blur(80-120px)`
         em divs sólidas. Blur com raio grande é uma das operações mais
@@ -78,8 +78,9 @@ export default function Hero() {
         />
       ))}
 
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-24 min-w-0 w-full">
+      {/* Main content — ocupa o espaço disponível (flex-1) e fica
+          centralizado nele, empurrando as estatísticas pro final da tela */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto px-6 text-center pt-20 pb-8 min-w-0 w-full">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -139,7 +140,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <motion.a
             href={WHATS_URL}
@@ -166,45 +167,36 @@ export default function Hero() {
             <span className="text-lg">↓</span>
           </a>
         </motion.div>
-
-        {/* Stats bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9 }}
-          className="flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16 py-8 border-t border-blue-400/20"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              className="text-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 + i * 0.1 }}
-            >
-              <p
-                className="text-3xl font-bold text-white"
-                style={{ fontFamily: "Sora, sans-serif" }}
-              >
-                {stat.value}
-              </p>
-              <p className="text-blue-300/70 text-xs tracking-wide mt-1">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Stats bar — bloco separado, empurrado pro final da seção pelo
+          flex-1 do bloco principal acima. Sempre em linha (mesmo no
+          mobile), com tamanhos reduzidos pra caber sem quebrar. */}
       <motion.div
-        className="hidden md:flex absolute bottom-8 inset-x-0 justify-center"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.9 }}
+        className="relative z-10 flex flex-row justify-center items-start gap-6 sm:gap-16 max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-10 sm:pb-8 border-t border-blue-400/20 w-full"
       >
-        <div className="w-6 h-10 rounded-full border-2 border-blue-400/40 flex items-start justify-center pt-2">
-          <div className="w-1 h-2 rounded-full bg-blue-400 animate-bounce" />
-        </div>
+        {stats.map((stat, i) => (
+          <motion.div
+            key={stat.label}
+            className="text-center flex-1 sm:flex-none min-w-0"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0 + i * 0.1 }}
+          >
+            <p
+              className="text-2xl sm:text-3xl font-bold text-white"
+              style={{ fontFamily: "Sora, sans-serif" }}
+            >
+              {stat.value}
+            </p>
+            <p className="text-blue-300/70 text-[10px] sm:text-xs tracking-wide mt-1 leading-tight">
+              {stat.label}
+            </p>
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );

@@ -17,9 +17,6 @@ export default function Results() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-blue-500 text-sm font-semibold tracking-[0.2em] mb-3 block">
-            ANTES E DEPOIS
-          </span>
           <h2 className="text-4xl md:text-5xl font-bold text-blue-950">
             Nossos{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">
